@@ -9,6 +9,7 @@ body,.page-description{
 
 .post-content p{
 	font-size:1.9rem;
+	margin-bottom:1.3em;
 }
 
 .post-content h1, 
@@ -21,10 +22,6 @@ body,.page-description{
 
 pre{
 	line-height:20px;
-}
-
-.highlight{
-	width:120%;
 }
 
 code{

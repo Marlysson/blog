@@ -1,5 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Daily Development - Marlysson Silva</title><link href="https://marlysson.github.io/" rel="alternate"></link><link href="https://marlysson.github.io/feeds/marlysson-silva.atom.xml" rel="self"></link><id>https://marlysson.github.io/</id><updated>2017-02-12T05:00:00-03:00</updated><entry><title>Princípios SOLID - Vantagens e fragilidades de código</title><link href="https://marlysson.github.io/principios-solid-a-teoria.html" rel="alternate"></link><published>2017-02-12T05:00:00-03:00</published><updated>2017-02-12T05:00:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-02-12:/principios-solid-a-teoria.html</id><summary type="html">&lt;p&gt;No desenvolvimento de software, nós desenvolvedores sempre presamos por construir sistema que sejam o mais fiel possível ao pedido do cliente ( por mais que haja mudanças no decorrer do tempo ) , mas além de tudo presamos por outros fatores que acontecem no decorrer ou após o desenvolvimento.&lt;/p&gt;</summary><content type="html">&lt;p&gt;No desenvolvimento de software, nós desenvolvedores sempre presamos por construir sistema que sejam o mais fiel possível ao pedido do cliente ( por mais que haja mudanças no decorrer do tempo ) , mas além de tudo presamos por outros fatores que acontecem no decorrer ou após o desenvolvimento.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daily Development - Marlysson Silva</title><link href="https://marlysson.github.io/" rel="alternate"></link><link href="https://marlysson.github.io/feeds/marlysson-silva.atom.xml" rel="self"></link><id>https://marlysson.github.io/</id><updated>2017-02-26T17:00:00-03:00</updated><entry><title>Criando um loader com css puro</title><link href="https://marlysson.github.io/loader-com-css-puro.html" rel="alternate"></link><published>2017-02-26T17:00:00-03:00</published><updated>2017-02-26T17:00:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-02-26:/loader-com-css-puro.html</id><summary type="html">&lt;p&gt;Bom pessoal , vou mostrar pra vocês como fazer um simples loader só com css . Já que eu estava revisando esse assunto por esses dias , resolvi postar essa dica rapidinho que pode ajudar vocês em algumas aplicações; Lembrando que tudo será feito só com css ( inclusive a animação ) , sem a necessidade de javascript , e também sem SVG ( para a parte das formas ). Então bora lá.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Geralmente o pessoal usa para criar esses pequenos componentes elementos simples como as tags: &lt;code&gt;i&lt;/code&gt; , &lt;code&gt;p&lt;/code&gt; , &lt;code&gt;span&lt;/code&gt;, geralmente para não usar todo um elemento &lt;code&gt;div&lt;/code&gt; só para um simples componente , então usa-se um elemento &lt;code&gt;inline&lt;/code&gt; que com ele é possível fazer as customizações , lembrando que para algo mais complexo poderia usar os pseudo-seletores : &lt;code&gt;:after&lt;/code&gt; e o &lt;code&gt;:before&lt;/code&gt; , qualquer hora faço um post explicando esses seletores.&lt;/p&gt;
+&lt;p&gt;Bom , primeiramente vamos fazer o markup que o nosso html terá, usarei um elemento &lt;code&gt;span&lt;/code&gt; ( só por conveniência ).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;span&lt;/span&gt; &lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;circle one_open&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;span&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Aqui usei uma classe para representar a forma do loader que será um círculo e outra classe para indicar que o loader terá uma só abertura ( mais tarde vou fazer uma com duas aberturas , e aí reutilizarei as classes já feitas ).&lt;/p&gt;
+&lt;p&gt;Agora vamos para o css básico:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;circle&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;display&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;inline-block&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;height&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;border-radius&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="kt"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;border&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="kc"&gt;solid&lt;/span&gt; &lt;span class="mh"&gt;#1abc9c&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E como está ficando até agora:&lt;/p&gt;
+&lt;p data-height="125" data-theme-id="dark" data-slug-hash="oZXjaM" data-default-tab="result" data-user="Marlysson" data-embed-version="2" data-pen-title="Part-one script" class="codepen"&gt;See the Pen &lt;a href="http://codepen.io/Marlysson/pen/oZXjaM/"&gt;Part-one script&lt;/a&gt; by Marlysson (&lt;a href="http://codepen.io/Marlysson"&gt;@Marlysson&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script async src="https://production-assets.codepen.io/assets/embed/ei.js"&gt;&lt;/script&gt;
+
+&lt;h5&gt;Observação&lt;/h5&gt;
+&lt;p&gt;Vejam que adicionei a propriedade &lt;code&gt;display&lt;/code&gt; com o valor &lt;code&gt;inline-block&lt;/code&gt;.
+O motivo de adicionar o valor &lt;code&gt;display:inline-block&lt;/code&gt; é que a tag &lt;code&gt;span&lt;/code&gt; é nativamente um elemento &lt;code&gt;inline&lt;/code&gt; , sendo assim , ele não reconhece propriedades de elementos de block , como é o caso da &lt;em&gt;width&lt;/em&gt; e da &lt;em&gt;height&lt;/em&gt; , quando alterei o valor da propriedade &lt;code&gt;display&lt;/code&gt; para &lt;code&gt;inline-block&lt;/code&gt; o elemento ainda continua sendo inline , mas agora podendo reconhecer propriedades de blocos para ( nesse caso ) ter alguma forma , seja circular , quadrada , triangular... etc.&lt;/p&gt;
+&lt;p&gt;Agora vamos eliminar uma das bordas do círculo para ter a ilusão que é um loader. O truque para isso é deixar uma das bordas transparente, assim dará a impressão que não há nada ali.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;one_open&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;border-top&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="kc"&gt;solid&lt;/span&gt; &lt;span class="kc"&gt;transparent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E voilà. Agora só falta animar.&lt;/p&gt;
+&lt;p data-height="125" data-theme-id="dark" data-slug-hash="QpbyWK" data-default-tab="result" data-user="Marlysson" data-embed-version="2" data-pen-title="Step-two" class="codepen"&gt;See the Pen &lt;a href="http://codepen.io/Marlysson/pen/QpbyWK/"&gt;Step-two&lt;/a&gt; by Marlysson (&lt;a href="http://codepen.io/Marlysson"&gt;@Marlysson&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script async src="https://production-assets.codepen.io/assets/embed/ei.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Para animar deve ser feito dois passos:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Adicionar o comportamento à cada passo da animação ( keyframes )&lt;/li&gt;
+&lt;li&gt;Ligar o keyframe com o elemento&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Passo 1&lt;/h3&gt;
+&lt;p&gt;Vamos fazer com que o elemento fique rodando de 0 à 360 graus;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;keyframes&lt;/span&gt; &lt;span class="nt"&gt;rotate&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nt"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;rotate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="kt"&gt;deg&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="nt"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;rotate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;360&lt;/span&gt;&lt;span class="kt"&gt;deg&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;  
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Os keyframes são responsáveis por definir o comportamento do elemento a cada estado durante a execução da animação , com isso pode-se definir a forma do elemento desde sua criação até completar a animação.&lt;/p&gt;
+&lt;h3&gt;Passo 2&lt;/h3&gt;
+&lt;p&gt;Para ligar com o elemento html devemos usar algumas propriedades de &lt;code&gt;css-animations&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;one_open&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;animation-name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;rotate&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;animation-iteration-count&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;animation-timing-function&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;linear&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;animation-duration&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="kt"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Explicando:&lt;/h4&gt;
+&lt;p&gt;O elemento &lt;strong&gt;one_open&lt;/strong&gt; será animado segundo o comportamento da animação de nome &lt;strong&gt;rotate&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Propriedades e valores:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;animation-name&lt;/strong&gt; : O mesmo nome do keyframe criado&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;animation-iteration-count&lt;/strong&gt; : Aqui foi definido para que fique para sempre executando a animação.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;animation-timing-function&lt;/strong&gt; : Aqui é definido o ritmo da animação , além de linear é possível definir para que ela inicie rápido e desacelere no final , é possível definir várias velocidades durante durante a animação.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;animation-duration&lt;/strong&gt; : Duração total da animação.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;E no final a animação ficou assim:&lt;/p&gt;
+&lt;p data-height="125" data-theme-id="0" data-slug-hash="Qpbyag" data-default-tab="result" data-user="Marlysson" data-embed-version="2" data-pen-title="Step-three" class="codepen"&gt;See the Pen &lt;a href="http://codepen.io/Marlysson/pen/Qpbyag/"&gt;Step-three&lt;/a&gt; by Marlysson (&lt;a href="http://codepen.io/Marlysson"&gt;@Marlysson&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script async src="https://production-assets.codepen.io/assets/embed/ei.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;E para criar uma nova forma fica fácil , pois já há uma classe específica para o círculo , ficando para a gente só criar a classe responsável pela outra animação. Por exemplo , uma com duas aberturas ficaria assim:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;two_open&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;border-top&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="kc"&gt;solid&lt;/span&gt; &lt;span class="kc"&gt;transparent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;border-bottom&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="kc"&gt;solid&lt;/span&gt; &lt;span class="kc"&gt;transparent&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c"&gt;/* Usando junção de seletores ( para não repetir propriedades ) */&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;one_open&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;two_open&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;animation-name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;rotate&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;animation-iteration-count&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;animation-timing-function&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;linear&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;animation-duration&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="kt"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Resultado final&lt;/p&gt;
+&lt;p data-height="125" data-theme-id="0" data-slug-hash="GWJoZK" data-default-tab="result" data-user="Marlysson" data-embed-version="2" data-pen-title="Step-three" class="codepen"&gt;See the Pen &lt;a href="http://codepen.io/Marlysson/pen/GWJoZK/"&gt;Step-four&lt;/a&gt; by Marlysson (&lt;a href="http://codepen.io/Marlysson"&gt;@Marlysson&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script async src="https://production-assets.codepen.io/assets/embed/ei.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Bom pessoal está aí um simples loader para usarem nas suas aplicação, ou só ver como grandes players de bibliotecas de animações fazem isso.&lt;/p&gt;
+&lt;p&gt;Até o próximo post.&lt;/p&gt;
+&lt;h3&gt;Referências&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://tableless.com.br/transition-e-animation/"&gt;Tableless - Transition e Animation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://css-tricks.com/almanac/properties/a/animation/"&gt;CSS-Tricks - Animation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://webdesign.tutsplus.com/tutorials/a-beginners-introduction-to-css-animation--cms-21068"&gt;Tutplus - A beginners-inroduction-to-css-animation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Frontend"></category><category term="css"></category><category term="experimentos"></category></entry><entry><title>Princípios SOLID - Vantagens e fragilidades de código</title><link href="https://marlysson.github.io/principios-solid-a-teoria.html" rel="alternate"></link><published>2017-02-12T05:00:00-03:00</published><updated>2017-02-12T05:00:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-02-12:/principios-solid-a-teoria.html</id><summary type="html">&lt;p&gt;No desenvolvimento de software, nós desenvolvedores sempre presamos por construir sistema que sejam o mais fiel possível ao pedido do cliente ( por mais que haja mudanças no decorrer do tempo ) , mas além de tudo presamos por outros fatores que acontecem no decorrer ou após o desenvolvimento.&lt;/p&gt;</summary><content type="html">&lt;p&gt;No desenvolvimento de software, nós desenvolvedores sempre presamos por construir sistema que sejam o mais fiel possível ao pedido do cliente ( por mais que haja mudanças no decorrer do tempo ) , mas além de tudo presamos por outros fatores que acontecem no decorrer ou após o desenvolvimento.&lt;/p&gt;
 &lt;h4&gt;Mudanças&lt;/h4&gt;
 &lt;p&gt;Talvez seja um dos principais motivos para focarmos em um bom desenvolvimento de softwares: poder adaptar à mudanças que possam ocorrer nas regras de negócios ( o que é totalmente plausível ) . Um dos princípios SOLID fala justamente nesse fator, poder construir um software que quando for solicitado alguma mudança não seja alterado o código existente, seja adicionado algo novo para poder suprir essa mudança que ocorreu.&lt;/p&gt;
 &lt;h4&gt;Entrada de um novo desenvolvedor&lt;/h4&gt;
