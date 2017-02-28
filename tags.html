@@ -169,5 +169,30 @@
         })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
         
     </script>
+
+    <script type="text/javascript">
+        
+        //Get randomly the backgrounds's blog
+        main_header = document.querySelector(".main-header");
+
+        colors = ["#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e"]
+
+        //Reference : http://stackoverflow.com/a/1527820/3908932
+        //Obs : Everything this to do a simple range ...
+
+        function get_random(){
+            var min = 1;
+            var max = 5;
+
+            var random_number = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            return random_number    
+        }
+
+        var color = colors[get_random()];
+
+        main_header.style.backgroundColor = color;
+
+    </script>
     </body>
 </html>

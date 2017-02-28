@@ -133,7 +133,8 @@
                         <h1 class="page-title" itemprop="headline">Criando um loader com css puro</h1>
                         <section class="post-meta">
                             <time class="post-date" itemprop="datePublished" datetime="2017YYY-00M-%DD" style="text-decoration:none;color: #EEEEEE">domingo, 26 de fevereiro de 2017</time>
-                            em <a href="tag/frontend.html" style="text-decoration:none;color: #EEEEEE">frontend, </a><a href="tag/css.html" style="text-decoration:none;color: #EEEEEE">css, </a><a href="tag/experimentos.html" style="text-decoration:none;color: #EEEEEE">experimentos</a>                        </section>
+                            <span class="post-meta-content">em</span> 
+<a href="tag/frontend.html" style="text-decoration:none;color: #EEEEEE">frontend, </a><a href="tag/css.html" style="text-decoration:none;color: #EEEEEE">css, </a><a href="tag/experimentos.html" style="text-decoration:none;color: #EEEEEE">experimentos</a>                        </section>
                     </div>
                 </div>
 
@@ -169,7 +170,7 @@
         </header>-->
 
         <section class="post-content">
-            <p>Geralmente o pessoal usa para criar esses pequenos componentes elementos simples como as tags: <code>i</code> , <code>p</code> , <code>span</code>, geralmente para não usar todo um elemento <code>div</code> só para um simples componente , então usa-se um elemento <code>inline</code> que com ele é possível fazer as customizações , lembrando que para algo mais complexo poderia usar os pseudo-seletores : <code>:after</code> e o <code>:before</code> , qualquer hora faço um post explicando esses seletores.</p>
+            <p>Geralmente o pessoal usa para criar esses pequenos componentes elementos simples como as tags: <code>i</code> , <code>b</code> , <code>span</code> ou qualquer elemento que não interfira no fluxo normal do documento, lembrando que para algo mais complexo poderia usar os pseudo-seletores : <code>:after</code> e o <code>:before</code> , qualquer hora faço um post explicando esses seletores.</p>
 <p>Bom , primeiramente vamos fazer o markup que o nosso html terá, usarei um elemento <code>span</code> ( só por conveniência ).</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;circle one_open&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </pre></div>
@@ -196,7 +197,7 @@
 
 <h5>Observação</h5>
 <p>Vejam que adicionei a propriedade <code>display</code> com o valor <code>inline-block</code>.
-O motivo de adicionar o valor <code>display:inline-block</code> é que a tag <code>span</code> é nativamente um elemento <code>inline</code> , sendo assim , ele não reconhece propriedades de elementos de block , como é o caso da <em>width</em> e da <em>height</em> , quando alterei o valor da propriedade <code>display</code> para <code>inline-block</code> o elemento ainda continua sendo inline , mas agora podendo reconhecer propriedades de blocos para ( nesse caso ) ter alguma forma , seja circular , quadrada , triangular... etc.</p>
+O motivo de adicionar o valor <code>display:inline-block</code> é que a tag <code>span</code> não possui uma propriedade de fluxo de documento definida, sendo assim , ele não reconhece determinadas propriedades, como é o caso da <em>width</em> e da <em>height</em> . Quando alterei o valor da propriedade <code>display</code> para <code>inline-block</code> o elemento agora é um elemento que se encaixa no fluxo normal da página ( inline ) , mas também podendo reconhecer propriedades de blocos para ( nesse caso ) ter alguma forma , seja circular , quadrada , triangular... etc.</p>
 <p>Agora vamos eliminar uma das bordas do círculo para ter a ilusão que é um loader. O truque para isso é deixar uma das bordas transparente, assim dará a impressão que não há nada ali.</p>
 <div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">one_open</span><span class="p">{</span>
     <span class="k">border-top</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">transparent</span><span class="p">;</span>
@@ -372,6 +373,31 @@ O motivo de adicionar o valor <code>display:inline-block</code> é que a tag <co
             a.appendChild(r);
         })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
         
+    </script>
+
+    <script type="text/javascript">
+        
+        //Get randomly the backgrounds's blog
+        main_header = document.querySelector(".main-header");
+
+        colors = ["#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e"]
+
+        //Reference : http://stackoverflow.com/a/1527820/3908932
+        //Obs : Everything this to do a simple range ...
+
+        function get_random(){
+            var min = 1;
+            var max = 5;
+
+            var random_number = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            return random_number    
+        }
+
+        var color = colors[get_random()];
+
+        main_header.style.backgroundColor = color;
+
     </script>
     </body>
 </html>

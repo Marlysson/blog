@@ -47,6 +47,11 @@ code{
 	text-align:center;
 }
 
+.post-meta-content{
+	color:#eee;
+	font-weight: bold;
+}
+
 .initial-page .page-title.init:after{
 	content:"|";
 	
@@ -54,11 +59,11 @@ code{
 	position:relative;
 	bottom:10px;
 
-	-webkit-animation-name: dot;
-	-moz-animation-name: dot;
-	-ms-animation-name: dot;
-	-o-animation-name: dot;
-	animation-name: dot;
+	-webkit-animation-name: bar_write;
+	-moz-animation-name: bar_write;
+	-ms-animation-name: bar_write;
+	-o-animation-name: bar_write;
+	animation-name: bar_write;
 
  	-webkit-animation-direction: alternate;
  	-moz-animation-direction: alternate;
@@ -86,7 +91,7 @@ code{
 
 }
 
-@keyframes dot{
+@keyframes bar_write{
 	0%{
 		opacity:0;
 	}
