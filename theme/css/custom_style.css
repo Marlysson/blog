@@ -28,6 +28,10 @@ code{
 	color:#f92672;
 }
 
+.page-title{
+	text-shadow:3px 3px 2px #34495e;
+}
+
 .initial-page .page-title{
 	font-size:5.5rem;
 }
