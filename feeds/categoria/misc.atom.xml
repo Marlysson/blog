@@ -1,5 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Daily Development - misc</title><link href="https://marlysson.github.io/" rel="alternate"></link><link href="https://marlysson.github.io/feeds/categoria/misc.atom.xml" rel="self"></link><id>https://marlysson.github.io/</id><updated>2017-02-26T17:00:00-03:00</updated><entry><title>Criando um loader com css puro</title><link href="https://marlysson.github.io/loader-com-css-puro.html" rel="alternate"></link><published>2017-02-26T17:00:00-03:00</published><updated>2017-02-26T17:00:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-02-26:/loader-com-css-puro.html</id><summary type="html">&lt;p&gt;Bom pessoal , vou mostrar pra vocês como fazer um simples loader só com css . Já que eu estava revisando esse assunto por esses dias , resolvi postar essa dica rapidinho que pode ajudar vocês em algumas aplicações; Lembrando que tudo será feito só com css ( inclusive a animação ) , sem a necessidade de javascript , e também sem SVG ( para a parte das formas ). Então bora lá.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Geralmente o pessoal usa para criar esses pequenos componentes elementos simples como as tags: &lt;code&gt;i&lt;/code&gt; , &lt;code&gt;b&lt;/code&gt; , &lt;code&gt;span&lt;/code&gt; ou qualquer elemento que não interfira no fluxo normal do documento, lembrando que para algo mais complexo poderia usar os pseudo-seletores : &lt;code&gt;:after&lt;/code&gt; e o &lt;code&gt;:before&lt;/code&gt; , qualquer hora faço um post explicando esses seletores.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daily Development - misc</title><link href="https://marlysson.github.io/" rel="alternate"></link><link href="https://marlysson.github.io/feeds/categoria/misc.atom.xml" rel="self"></link><id>https://marlysson.github.io/</id><updated>2017-06-03T20:20:00-03:00</updated><entry><title>O que você precisa saber para iniciar com Ambientes Virtuais</title><link href="https://marlysson.github.io/o-que-voce-precisa-saber-sobre-ambientes-virtuais.html" rel="alternate"></link><published>2017-06-03T20:20:00-03:00</published><updated>2017-06-03T20:20:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-06-03:/o-que-voce-precisa-saber-sobre-ambientes-virtuais.html</id><summary type="html">&lt;p&gt;Nos dias atuais com o Python servindo para vários proprósitos fica difícil trabalhar com projetos de diversos seguimentos sem gerenciar todas as duas dependências, e ainda mais quem for iniciante no python e está querendo organizar seus projetos. Nesse posto pretendo explicar o necessário para você saber trabalhar com ambientes virtuais mais tranquilamente e sanar dúvidas que ainda existam.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Esse tutorial será válido para Windows , visto que vi poucos explicando-o comparado à linux. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Bom pessoal hoje vou falar de um assunto que quando o pessoal está iniciando em algum projeto em Python tem certa dificuldade, então vou tentar sanar algumas neste post.&lt;/p&gt;
+&lt;h4&gt;O INÍCIO ( ORIGEM DO PROBLEMA )&lt;/h4&gt;
+&lt;p&gt;Bom, pelo menos eu, quando iniciei no desenvolvimento com Python sempre ouvia o pessoal falar em ambientes virtuais... que tinha que isolar as libs de projeto, essas coisas, mas não entendia muito bem pois eu só trabalhava com pequenos projetos e sempre com as mesmas libs, ainda mais que eu estava começando a aprender Python e suas bibliotecas, então eu instalava tudo no sistema operacional e começava a codificar ( que era o que eu queria ) :D  &lt;/p&gt;
+&lt;p&gt;Então no inicio o pessoal ( até onde eu vi ), instalava as libs dos seus projetos direto no sistema operacional que estava usando, e se surgisse outro projeto com outras libs era fácil, só instalar ao lado das que já haviam (sem problemas), negócio era quando o projeto precisava de libs em outras versões das que já existiam, aí que o negócio começava a complicar, tinha que desistalar as que já estavam e instalar do outro projeto... depois voltar as outras libs quando voltasse para o projeto antigo... em resumo, virava uma bagunça, e para administrar isso era complicado.&lt;/p&gt;
+&lt;h4&gt;COMO SOLUCIONARAM&lt;/h4&gt;
+&lt;p&gt;Para resolver esse problema o pessoal criou um conceito chamado &lt;code&gt;ambiente virtual&lt;/code&gt;, que nada mais é que uma pasta com arquivos que simulam uma instalação real do Python, e com isso recria todo um ambiente para que libs possam ser instaladas, e assim possa "apontar" a instalação atual para determinada pasta naquele momento desejada para se trabalhar ( ambiente virtual de uma instalação Python ) , e com esse ambiente ativado ele enxergará determiadas libs instaladas, e se ativar outro ambiente que aponta para outro path de uma outra instalação Python com libs totalmente diferentes.&lt;/p&gt;
+&lt;p&gt;Desse modo você pode criar vários ambientes com sua própria instalação do Python e instalar qualquer lib nesse ambiente que ele não fica exposto para o seu sistema, e assim deixará cada projeto isolado e tranquilo de se trabalhar.&lt;/p&gt;
+&lt;h4&gt;COMO INSTALAR&lt;/h4&gt;
+&lt;p&gt;A coisa mais básica que se precisa para iniciar é o &lt;code&gt;pip&lt;/code&gt; instalado . Por padrão ele vem nas instalações do &lt;strong&gt;Python 2 &amp;gt;= 2.7.9&lt;/strong&gt; e &lt;strong&gt;Python 3 &amp;gt;= 3.4&lt;/strong&gt; , mas se você não está usando nenhuma dessas... Dificilmente :D ..&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O &lt;code&gt;pip&lt;/code&gt; é uma lib que merece atenção, pois ela é o gerenciador padrão de dependências de projetos Python, com ela é possível instalar via linha de comando todas as libs que seu projeto precisa, tudo isso graças ao repositório de libs python: &lt;strong&gt;&lt;a href="https://pypi.python.org/pypi"&gt;PyPI&lt;/a&gt;,&lt;/strong&gt; onde você encontrará diversas facilidades para seu projeto, desde tratamento de datas, frameworks web, machine learning, gráficos, tratamento de requisições web...&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Mas se não houver o pip instalado na máquina então acesse esse &lt;strong&gt;&lt;a href="https://bootstrap.pypa.io/get-pip.py"&gt;link&lt;/a&gt;&lt;/strong&gt;, salve em algum local e execute por meio do python para instalá-lo.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python3 get-pip.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Se o pip já estava na sua máquina execute o comando: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python3 -m pip install virtualenv
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E começará a instalação:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; python3 -m pip install virtualenv
+Downloading/unpacking virtualenv
+Installing collected packages: virtualenv
+Successfully installed virtualenv
+Cleaning up...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;O comando &lt;strong&gt;python3 -m&lt;/strong&gt; indica será executado uma lib python por meio do terminal.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Se ele tiver sido instalado via get-pip.py basta usar o &lt;code&gt;pip&lt;/code&gt; na linha de comando, sem referenciar o Python.&lt;/p&gt;
+&lt;h4&gt;COMO USAR&lt;/h4&gt;
+&lt;p&gt;Depois de instalado, a lib estará disponível no console para criar ambientes da seguinte forma:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; virtualenv python_project
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Se tudo ocorrer bem aparecerá as seguintes mensagens:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;D:\Ambientes\&amp;gt; virtualenv python-project
+Using base prefix &amp;#39;C:\\Python34&amp;#39;
+New python executable in D:\Ambientes\python-project\Scripts\python3.exe
+Also creating executable in D:\Ambientes\python-project\Scripts\python.exe
+Installing setuptools, pip, wheel...done.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pronto, com isso você tem um ambiente para se trabalhar. Mas para iniciar de fato é preciso ativá-lo, e para isso basta entrar na pasta &lt;code&gt;Scripts&lt;/code&gt; dentro da pasta do ambiente criado e executar pelo cmd o arquivo activate.bat ( pode escrever sem a extenção .bat ). &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd D:\Ambientes\python-project\Scripts
+D:\Ambientes\python-project\Scripts&amp;gt; activate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Com isso o seu console mudará e passará a ter o nome do ambiente no início do conteúdo do endereço atual , no meu caso :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(python-project) D:\Ambientes&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E para desativar basta usar o comando &lt;code&gt;deactivate&lt;/code&gt; de qualquer ponto do seus sistema através do cmd.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;D:\deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Com isso você não estará com nenhum ambiente ativado.&lt;/p&gt;
+&lt;p&gt;Dessa forma você já pode instalar suas libs independentes para trabalhar tranquilamente sem conflitos com outros projetos.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note que eu não precisei criar o ambiente virtual dentro do projeto que eu iria trabalhar, e nem precisa, como nós estamos trabalhando com ambientes virtuais ele funciona como um ambiente comum como se fosse a instalação normal do Python depois de instalado. Com isso nossos comandos Python no cmd enxergarão o Python atualmente ativo, seja do sistema operacional , seja do ambiente virtual. Dessa forma eu posso ter uma pasta chamada "Ambientes" para conter cada ambiente de libs que trabalharei em cada projeto, e quando for trabalhar no projeto respectivo daquele ambiente eu só ativo ele e vou trabalhar no projeto normalmente. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Com isso: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O ambiente só é associado ao projeto através da ativação do mesmo , não necessariamente precisa está dentro do projeto.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;BOAS PRÁTICAS&lt;/h4&gt;
+&lt;p&gt;E para ficar ainda melhor trabalhar com ambientes virtuais há uma prática que é usar um arquivo chamado &lt;strong&gt;requirements.txt&lt;/strong&gt; com as libs necessárias, sua estrutura é parecida com:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;faker
+requests
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Cada lib usada no projeto separada por linha, e para executá-lo basta estar com o ambiente ativado ( através do comando &lt;code&gt;activate&lt;/code&gt; ) e executá-lo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install -r requirements.txt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Assim o &lt;em&gt;pip&lt;/em&gt; usará o comando &lt;code&gt;pip install lib&lt;/code&gt; recursivamente para cada lib contida no arquivo. Dessa forma em projetos em equipes basta gerar um requirements para o projeto em uso e com isso o outro programador executá-lo para ficar com o ambiente totalmente igual ( com relação à bibliotecas ) ao da equipe. E ainda vejo usarem arquivos como &lt;strong&gt;dev_requirements.txt&lt;/strong&gt;, onde nesse arquivo haverá por exemplo libs respectivas à testes unitários e de cobertura de código para ser verificado antes de fazer o deploy, não sendo necessário instalar essas libs no ambiente de produção.&lt;/p&gt;
+&lt;h6&gt;Mas e para gerar esse arquivo com as libs que estou usando no meu ambiente virtual?&lt;/h6&gt;
+&lt;p&gt;Simples, o pip possui um comando chamado &lt;code&gt;freeze&lt;/code&gt; onde ele pega as libs da instalação atual do python ( lembra que um ambiente virtual está ativado ? ). mais suas dependências e gera um arquivo com suas versões naquele momento. Vamos gerar um arquivo requirements para as libs listadas no exemplo acima.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; pip freeze &amp;gt; requirements.txt
+certifi==2017.4.17
+chardet==3.0.3
+Faker==0.7.15
+idna==2.5
+python-dateutil==2.6.0
+requests==2.17.3
+six==1.10.0
+urllib3==1.21.1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Assim o &lt;code&gt;pip freeze&lt;/code&gt; joga a saída do comando ( que é a lista das libs instaladas no ambiente atual ) para o arquivo.&lt;/p&gt;
+&lt;p&gt;Pronto, as libs que você usa no seu ambiente estão em um arquivo que pode ser compartilhado, atualizado e mudado entre a equipe.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Lembrando que o &lt;strong&gt;requirements.txt&lt;/strong&gt; por convenção deve ficar na raiz do projeto&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;BÔNUS&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Há maneiras de escolhar uma versão diferente do python para cada ambiente por meio do parâmetro --python="Diretório da versão do python" junto ao comando &lt;code&gt;virtualenv&lt;/code&gt;, assim algumas libs que só suportam o python2.7 poderão ser executadas.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A partir python3.4 há vem incluído uma lib chamada &lt;code&gt;venv&lt;/code&gt; responsável por criar ambientes virtuais sem necessidade de componentes externos. Basta:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python3 -m venv nome_do_ambiente
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Usando o próprio python para criar o ambiente o fluxo é o mesmo explicado no post.&lt;/p&gt;
+&lt;p&gt;Bom pessoal era isso que tinha pra explicar sobre como trabalhar com ambientes virtuais para deixar seus projetos mais organizados. Até o próximo post.&lt;/p&gt;
+&lt;h4&gt;REFERÊNCIAS&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://pypi.python.org/pypi"&gt;PyPI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://pip.pypa.io/en/stable/"&gt;Pip&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://virtualenv.pypa.io/en/stable/"&gt;Virtualenv&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Python"></category><category term="Ambientes Virtuais"></category><category term="Boas Práticas"></category></entry><entry><title>Criando um loader com css puro</title><link href="https://marlysson.github.io/loader-com-css-puro.html" rel="alternate"></link><published>2017-02-26T17:00:00-03:00</published><updated>2017-02-26T17:00:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-02-26:/loader-com-css-puro.html</id><summary type="html">&lt;p&gt;Bom pessoal , vou mostrar pra vocês como fazer um simples loader só com css . Já que eu estava revisando esse assunto por esses dias , resolvi postar essa dica rapidinho que pode ajudar vocês em algumas aplicações; Lembrando que tudo será feito só com css ( inclusive a animação ) , sem a necessidade de javascript , e também sem SVG ( para a parte das formas ). Então bora lá.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Geralmente o pessoal usa para criar esses pequenos componentes elementos simples como as tags: &lt;code&gt;i&lt;/code&gt; , &lt;code&gt;b&lt;/code&gt; , &lt;code&gt;span&lt;/code&gt; ou qualquer elemento que não interfira no fluxo normal do documento, lembrando que para algo mais complexo poderia usar os pseudo-seletores : &lt;code&gt;:after&lt;/code&gt; e o &lt;code&gt;:before&lt;/code&gt; , qualquer hora faço um post explicando esses seletores.&lt;/p&gt;
 &lt;p&gt;Bom , primeiramente vamos fazer o markup que o nosso html terá, usarei um elemento &lt;code&gt;span&lt;/code&gt; ( só por conveniência ).&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;span&lt;/span&gt; &lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;circle one_open&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;span&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
