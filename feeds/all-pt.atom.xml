@@ -1,5 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Daily Development</title><link href="https://marlysson.github.io/" rel="alternate"></link><link href="https://marlysson.github.io/feeds/all-pt.atom.xml" rel="self"></link><id>https://marlysson.github.io/</id><updated>2017-07-23T14:20:00-03:00</updated><entry><title>Properties em Python ... como fazer encapsulamento pythônico</title><link href="https://marlysson.github.io/python-properties-e-encapsulamento-na-orientacao-a-objetos.html" rel="alternate"></link><published>2017-07-23T14:20:00-03:00</published><updated>2017-07-23T14:20:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-07-23:/python-properties-e-encapsulamento-na-orientacao-a-objetos.html</id><summary type="html">&lt;p&gt;Um tópico bastante interessante (porém curto) na orientação a objetos no Python são as properties. Elas são responsáveis por encapsular o acesso à variáveis das nossas classes, fazendo assim um design de classes mais completo, onde você pode ter algum processamento interno e só expor o que é adequado nas API's públicas de suas classes. Então vamos lá entender o que são elas e como usá-las.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Na orientação a objetos no Python há alguns aspectos diferentes do tradicional apresentado em outras linguagens OO, mas nem por isso é algo para se espantar, vai de acordo com a filosofia de cada linguagem.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Daily Development</title><link href="https://marlysson.github.io/" rel="alternate"></link><link href="https://marlysson.github.io/feeds/all-pt.atom.xml" rel="self"></link><id>https://marlysson.github.io/</id><updated>2017-08-05T19:30:00-03:00</updated><entry><title>Usando Python ( requests ) para lidar com apis REST da web</title><link href="https://marlysson.github.io/lidando-com-apis-rest-na-web-com-python.html" rel="alternate"></link><published>2017-08-05T19:30:00-03:00</published><updated>2017-08-05T19:30:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-08-05:/lidando-com-apis-rest-na-web-com-python.html</id><summary type="html">&lt;p&gt;Pessoal, esse post servirá entre outras coisas para mostrar como usar python ( mais propriamente a lib requests ) para lidar com apis REST de alguns serviços existentes na web. Então vamos ao conteúdo.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Apis escolhidas&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://developer.github.com/"&gt;GITHUB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://jsonplaceholder.typicode.com/"&gt;JSON PLACEHOLDER&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://viacep.com.br/"&gt;VIA_CEP&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;Passos que serão executados para cada api:&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Descrição da api&lt;/li&gt;
+&lt;li&gt;Formas de autenticação&lt;/li&gt;
+&lt;li&gt;Recuperação de alguns recursos&lt;/li&gt;
+&lt;li&gt;Criação de alguns recursos&lt;/li&gt;
+&lt;li&gt;Verificar a existência de outros verbos HTTP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;API do GitHub&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Na api do github é possível manusear cada parte de um projeto programaticamente, por exemplo : criar repositórios, criar issues, comentar, buscar por dados de projetos, dados de usuários e por aí vai. Muito vasta por sinal.&lt;/p&gt;
+&lt;p&gt;Endpoints localizados em : &lt;a href="https://developer.github.com/v3"&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;Formas de autenticação&lt;/h4&gt;
+&lt;p&gt;Para algumas operações que faremos precisamos estar autenticados de alguma forma na api do github, para isso temos algumas opções:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://developer.github.com/v3/oauth_authorizations/"&gt;OAuth&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.github.com/v3/auth/#via-oauth-tokens"&gt;Personal Token&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.github.com/v3/auth/#basic-authentication"&gt;Basic Autentication&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A Personal Token e  Basic Autentication são praticamente iguais, as duas necessitam do username como campo, mas a primeira forma usar um token que é criado na &lt;a href="https://github.com/settings/tokens"&gt;página de configurações do usuário&lt;/a&gt; e a segunda usa a própria senha do dele.&lt;/p&gt;
+&lt;p&gt;Vamos aos exemplos:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Personal Token&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+
+&lt;span class="n"&gt;auth&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;http_method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://api.github.com/user&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;auth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SEU_USUARIO&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SEU_TOKEN&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Oura forma usando o Personal Token&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Criando um cabeçalho com o token criado na sua conta do github&lt;/span&gt;
+&lt;span class="n"&gt;header_authorization&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Authorization&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;token {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SEU_TOKEN&lt;/span&gt;&lt;span class="p"&gt;)}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Fazendo a requisição pro endpoint passando o cabeçalho&lt;/span&gt;
+&lt;span class="c1"&gt;#com o token de autenticação&lt;/span&gt;
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;http_method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;endpoint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;header_authorization&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Basic Authentication&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+
+&lt;span class="n"&gt;auth&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;http_method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://api.github.com/user&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;auth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SEU_USUARIO&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SUA_SENHA&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E nas duas chamadas retornará os mesmos dados. Para uma visualização pública desses dados acesse &lt;a href="https://api.github.com/users/Marlysson"&gt;Meu perfil&lt;/a&gt;. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Usando os dados da requisição autenticada virá mais dados, mas por questões de segurança, foram omitidos.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;Vamos tentar algumas operações&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Obtendo dados de um usuário&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Autenticação : &lt;em&gt;Para obter dados sensíveis &lt;strong&gt;SIM&lt;/strong&gt; , mas também há consulta pública&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Endpoint : &lt;code&gt;htts://api.github.com/users/:username&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Método HTTP : &lt;strong&gt;GET&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;url_user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;htts://api.github.com/users/{}&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;url_user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Marlysson&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;nome&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Marlysson&lt;/span&gt; &lt;span class="n"&gt;Silva&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;repos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;public_repos&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;34&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;&lt;a href="https://api.github.com/users/Marlysson"&gt;Aqui&lt;/a&gt; você pode ver a lista completa das propriedades permitidas na consulta pública&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Mas nem só de consultas públicas vive uma api, principalmente a do github. Como foi visto nos endpoints do github são vários e vários recursos a serem trabalhados..&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Criação de um repositório&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Para essa parte precisamos estar autenticados na api, para isso vamos usar a segunda forma de autenticação da Personal Token, passando ela no cabeçalho da requisição.&lt;/p&gt;
+&lt;p&gt;Dados necessários para fazer a requisição:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Autenticação : &lt;strong&gt;Sim&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Endpoint : &lt;code&gt;https://api.github.com/user/repos&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Método HTTP : &lt;strong&gt;POST&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Corpo da requisição de entrada : &lt;a href="https://developer.github.com/v3/repos/#input"&gt;Dados&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+
+&lt;span class="n"&gt;endpoint&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://api.github.com/user/repos&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Criando o cabeçalho de autorização&lt;/span&gt;
+&lt;span class="n"&gt;header_auth&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Authorization&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;token {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SEU_TOKEN_AQUI&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)}&lt;/span&gt;
+
+&lt;span class="n"&gt;corpo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Novo-Projeto&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Criando a requisição. Passando os dados de input para o endpoint&lt;/span&gt;
+&lt;span class="c1"&gt;# e passando o cabeçalho de autorização&lt;/span&gt;
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;endpoint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;corpo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;header_auth&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;
+&lt;span class="n"&gt;dados&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Status da requisiçao: {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Status&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Localização na api: {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Location&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Url do proejto: {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dados&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;html_url&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;E como retorno da criação do recurso temos:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Status da requisição : 201 Created
+Localização na api: https://api.github.com/repos/Marlysson/Novo-projeto
+Url do projeto: https://github.com/Marlysson/Novo-projeto
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Uso de outros verbos HTTP&lt;/h4&gt;
+&lt;p&gt;A api suporta vários outros verbos HTTP,e são eles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;HEAD&lt;/strong&gt; ( Usado para obter informações dos cabeçalhos das requisições )&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PATCH&lt;/strong&gt; ( Usado para atualizar alguns atributos do recurso, mas como é um verbo incomum nas requisições HTTP, a api também suporta o POST )&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PUT&lt;/strong&gt; ( Usado para substituir recursos ou coleções existentes )&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DELETE&lt;/strong&gt; ( Deletar recursos )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Api do Json Placeholder&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;É um serviço para desenvolvedores testarem como suas integrações se comportarão quando for feita o deploy final, isso é feito através de acesso à dados fictícios providos pelo serviço.
+A ferramenta trabalha com os seguintes recursos: &lt;code&gt;Posts&lt;/code&gt;, &lt;code&gt;Comments&lt;/code&gt;, &lt;code&gt;Albums&lt;/code&gt;, &lt;code&gt;Photos&lt;/code&gt;, &lt;code&gt;Todos&lt;/code&gt;, &lt;code&gt;Users&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Para exemplificar vamos trabalhar com a entidade &lt;code&gt;Todos&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;Formas de autenticação&lt;/h4&gt;
+&lt;p&gt;Não possui, pois é somente para tratamento de alguns recursos web.&lt;/p&gt;
+&lt;h4&gt;Algumas operações&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Recuperação de itens&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Recuperando uma entidade &lt;code&gt;Todos&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://jsonplaceholder.typicode.com/todos/1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;userId&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;delectus aut autem&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;completed&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;false&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Criação de recursos&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;url_todos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://jsonplaceholder.typicode.com/todos&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;userId&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Nova tarefa&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;completed&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url_todos&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;userId&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;201&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Nova tarefa&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;completed&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;False&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Uso de outros métodos&lt;/h4&gt;
+&lt;p&gt;Essa api suporta mais 3 métodos HTTP, e são eles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PUT ( &lt;code&gt;requests.put(url_resource,data)&lt;/code&gt; )&lt;/li&gt;
+&lt;li&gt;PATCH ( &lt;code&gt;requests.patch(url_resource,data)&lt;/code&gt; )&lt;/li&gt;
+&lt;li&gt;DELETE ( &lt;code&gt;requests.delete(url_resource)&lt;/code&gt; )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Api Via cep&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Api responsável por retornar os dados geográficos referentes à um dado cep.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;Formas de autenticação&lt;/h4&gt;
+&lt;p&gt;Não possui, requisições públicas&lt;/p&gt;
+&lt;h4&gt;Verificando operações sobre os recursos&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Recuperando um cep&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;url_cep&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://viacep.com.br/ws/{cep}/json/&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;cep&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;01001000&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;url_via_cep&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;cep&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;cep&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;01001-000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;logradouro&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Praça da Sé&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;complemento&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;lado ímpar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;bairro&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Sé&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;localidade&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;São Paulo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;uf&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;SP&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;unidade&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;ibge&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;3550308&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;gia&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;1004&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Não possui métodos adicionais&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5&gt;Código dos scripts organizados estão no seguinte repositório:&lt;/h5&gt;
+&lt;p&gt;&lt;a href="https://github.com/Marlysson/requests-webapi"&gt;Repositório&lt;/a&gt;&lt;/p&gt;</content><category term="Python"></category><category term="REST"></category></entry><entry><title>Properties em Python ... como fazer encapsulamento pythônico</title><link href="https://marlysson.github.io/python-properties-e-encapsulamento-na-orientacao-a-objetos.html" rel="alternate"></link><published>2017-07-23T14:20:00-03:00</published><updated>2017-07-23T14:20:00-03:00</updated><author><name>Marlysson Silva</name></author><id>tag:marlysson.github.io,2017-07-23:/python-properties-e-encapsulamento-na-orientacao-a-objetos.html</id><summary type="html">&lt;p&gt;Um tópico bastante interessante (porém curto) na orientação a objetos no Python são as properties. Elas são responsáveis por encapsular o acesso à variáveis das nossas classes, fazendo assim um design de classes mais completo, onde você pode ter algum processamento interno e só expor o que é adequado nas API's públicas de suas classes. Então vamos lá entender o que são elas e como usá-las.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Na orientação a objetos no Python há alguns aspectos diferentes do tradicional apresentado em outras linguagens OO, mas nem por isso é algo para se espantar, vai de acordo com a filosofia de cada linguagem.&lt;/p&gt;
 &lt;p&gt;No Python todos os atributos de classe são públicos naturalmente, uma crítica que vejo muito é que não tem como restringir o acesso externo ao conteúdo das nossas classes, se valendo pelos modificadores de acesso : &lt;code&gt;private&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt; e &lt;code&gt;public&lt;/code&gt;, e por isso não tem uma boa orientação a objetos( usando como parâmetro a que é ensinada no Java por exemplo , com tudo explícitamente exposto para o programador ali na tela.)&lt;/p&gt;
 &lt;p&gt;Mas como em linguagens de programação nem todas as features são feitas iguais, veremos a forma que o Python trata sua orientação a objetos no caso do encapsulamento.&lt;/p&gt;
 &lt;h3&gt;Implementação Java-like do encapsulamento&lt;/h3&gt;
